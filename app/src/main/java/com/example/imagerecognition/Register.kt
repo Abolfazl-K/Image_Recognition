@@ -1,30 +1,35 @@
 package com.example.imagerecognition
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
 class Register : AppCompatActivity() {
 
     private val mAuth:FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var emailInput: TextInputEditText
+    private lateinit var pass1Input: TextInputEditText
+    private lateinit var pass2Input: TextInputEditText
+    private lateinit var btnRegister: Button
+    private lateinit var progressBar: TextInputEditText
+    private lateinit var loginNow: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val emailInput: TextInputEditText = findViewById(R.id.emailInput)
-        val pass1Input: TextInputEditText = findViewById(R.id.registerPass1)
-        val pass2Input: TextInputEditText = findViewById(R.id.registerPass2)
-        val btnRegister: Button = findViewById(R.id.btn_register)
-        val progressBar:ProgressBar = findViewById(R.id.progressBar)
-        val loginNow:TextView = findViewById(R.id.loginNow)
+        emailInput = findViewById(R.id.emailInput)
+        pass1Input = findViewById(R.id.registerPass1)
+        pass2Input = findViewById(R.id.registerPass2)
+        btnRegister = findViewById(R.id.btn_register)
+        progressBar = findViewById(R.id.progressBar)
+        loginNow = findViewById(R.id.loginNow)
 
         loginNow.setOnClickListener{
             val intent = Intent(this, Login::class.java)

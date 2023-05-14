@@ -9,22 +9,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
-
+    val auth = FirebaseAuth.getInstance()
+    private lateinit var btnLogout: Button
+    private lateinit var userInfo: TextView
+    private lateinit var user: FirebaseUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val auth = FirebaseAuth.getInstance()
-        val btnLogout: Button = findViewById(R.id.btn_logout)
-        val userInfo:TextView = findViewById(R.id.userInfo)
-        val user = auth.currentUser
+        btnLogout = findViewById(R.id.btn_logout)
+        userInfo= findViewById(R.id.userInfo)
+        user = auth.currentUser!!
 
-        if(user == null){
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-            finish()
-        }else{
-            userInfo.text = user.email.toString()
-        }
+        userInfo.text = user.email.toString()
 
         btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()

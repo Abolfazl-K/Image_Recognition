@@ -12,17 +12,22 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
-    val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    private lateinit var emailInput: TextInputEditText
+    private lateinit var passInput: TextInputEditText
+    private lateinit var btnLogin: Button
+    private lateinit var progressBar: ProgressBar
+    private lateinit var registerNow:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val emailInput: TextInputEditText = findViewById(R.id.emailInput)
-        val passInput: TextInputEditText = findViewById(R.id.passwordInput)
-        val btnLogin: Button = findViewById(R.id.btn_login)
-        val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        val registerNow:TextView = findViewById(R.id.registerNow)
+        emailInput = findViewById(R.id.emailInput)
+        passInput = findViewById(R.id.passwordInput)
+        btnLogin = findViewById(R.id.btn_login)
+        progressBar = findViewById(R.id.progressBar)
+        registerNow = findViewById(R.id.registerNow)
 
         registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
