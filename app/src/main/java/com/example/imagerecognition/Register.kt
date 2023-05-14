@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,7 @@ class Register : AppCompatActivity() {
     private lateinit var pass1Input: TextInputEditText
     private lateinit var pass2Input: TextInputEditText
     private lateinit var btnRegister: Button
-    private lateinit var progressBar: TextInputEditText
+    private lateinit var progressBar: ProgressBar
     private lateinit var loginNow: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,31 +47,52 @@ class Register : AppCompatActivity() {
             val pass2:String = pass2Input.text.toString()
 
             if(email.isEmpty()){
-                Toast.makeText(this, "Email cant be empty!", Toast.LENGTH_SHORT).show()
+                emailInput.error = "Email cant be empty!"
+                progressBar.visibility = View.GONE
+                return@setOnClickListener
+            }
+
+            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                emailInput.error = "Please provide valid email!"
                 progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             if(pass1.isEmpty() || pass2.isEmpty()){
-                Toast.makeText(this, "Password cant be empty!", Toast.LENGTH_SHORT).show()
+                if(pass1.isEmpty() && pass2.isEmpty()){
+                    pass1Input.error = "Password cant be empty!"
+                    pass2Input.error = "Password cant be empty!"
+                }else if(pass1.isEmpty()){
+                    pass1Input.error = "Password cant be empty!"
+                }else{
+                    pass2Input.error = "Password cant be empty!"
+                }
                 progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             if(pass1 != pass2){
-                Toast.makeText(this, "Passwords are not the same!", Toast.LENGTH_SHORT).show()
+                pass1Input.error = "Passwords are not the same!"
                 progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
+
+            if(pass1.length < 6){
+                pass1Input.error = "Passwords must be at least 6 characters!"
+                progressBar.visibility = View.GONE
+                return@setOnClickListener
+            }
+
 
             mAuth.createUserWithEmailAndPassword(email, pass1)
                 .addOnCompleteListener(this) { task ->
                     progressBar.visibility = View.GONE
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+                        val user = mAuth.currentUser
+                        user?.sendEmailVerification()
                         Toast.makeText(
                             this,
-                            "Account created!",
+                            "User registered successfully!, please verify your email.",
                             Toast.LENGTH_SHORT,
                         ).show()
                         val intent = Intent(this, Login::class.java)

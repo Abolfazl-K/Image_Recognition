@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class Login : AppCompatActivity() {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -19,6 +20,7 @@ class Login : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var progressBar: ProgressBar
     private lateinit var registerNow:TextView
+    private lateinit var forgotPass:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -28,6 +30,11 @@ class Login : AppCompatActivity() {
         btnLogin = findViewById(R.id.btn_login)
         progressBar = findViewById(R.id.progressBar)
         registerNow = findViewById(R.id.registerNow)
+        forgotPass = findViewById(R.id.forgotPass)
+
+        forgotPass.setOnClickListener {
+
+        }
 
         registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
@@ -37,17 +44,17 @@ class Login : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             progressBar.visibility = View.VISIBLE
-            val email: String = emailInput.text.toString()
+            val email: String = emailInput.text.toString().trim()
             val password: String = passInput.text.toString()
 
             if(email.isEmpty()){
-                Toast.makeText(this, "Email cant be empty!", Toast.LENGTH_SHORT).show()
+                emailInput.error = "Email cant be empty!"
                 progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             if(password.isEmpty()){
-                Toast.makeText(this, "Password cant be empty!", Toast.LENGTH_SHORT).show()
+                passInput.error = "Password cant be empty!"
                 progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
@@ -56,16 +63,25 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     progressBar.visibility = View.GONE
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Toast.makeText(
-                            baseContext,
-                            "Login successful!",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
+                        val user:FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+                        if(user.isEmailVerified){
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(
+                                baseContext,
+                                "Login successful!",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }else{
+                            user.sendEmailVerification()
+                            Toast.makeText(
+                                baseContext,
+                                "Please verify your email and try again!",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(
@@ -83,7 +99,7 @@ class Login : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = mAuth.currentUser
-        if (currentUser != null) {
+        if (currentUser != null && mAuth.currentUser?.isEmailVerified  == true  ) {
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
             finish()
