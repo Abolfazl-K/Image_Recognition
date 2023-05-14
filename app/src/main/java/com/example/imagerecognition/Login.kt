@@ -33,7 +33,8 @@ class Login : AppCompatActivity() {
         forgotPass = findViewById(R.id.forgotPass)
 
         forgotPass.setOnClickListener {
-
+            val intent = Intent(applicationContext, ResetPass::class.java)
+            startActivity(intent)
         }
 
         registerNow.setOnClickListener{
