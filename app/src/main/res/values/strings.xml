@@ -14,4 +14,10 @@
     <string name="reset_password">Reset Password</string>
     <string name="reset">RESET</string>
     <string name="back_to_login">Back to login</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="name">Name</string>
 </resources>
