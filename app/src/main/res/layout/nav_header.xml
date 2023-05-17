@@ -11,7 +11,8 @@
         android:id="@+id/profilePic"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/ic_profile_foreground"/>
+        app:srcCompat="@drawable/ic_info"
+        android:contentDescription="@string/profile" />
 
     <TextView
         android:layout_width="wrap_content"
