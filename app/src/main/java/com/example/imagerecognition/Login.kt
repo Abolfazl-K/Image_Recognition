@@ -40,7 +40,6 @@ class Login : AppCompatActivity() {
         registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
             startActivity(intent)
-            finish()
         }
 
         btnLogin.setOnClickListener {
@@ -73,6 +72,7 @@ class Login : AppCompatActivity() {
                                 Toast.LENGTH_SHORT,
                             ).show()
                             val intent = Intent(applicationContext, MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
                             finish()
                         }else{
@@ -102,6 +102,7 @@ class Login : AppCompatActivity() {
         val currentUser = mAuth.currentUser
         if (currentUser != null && mAuth.currentUser?.isEmailVerified  == true  ) {
             val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }

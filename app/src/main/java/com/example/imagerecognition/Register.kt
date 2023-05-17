@@ -34,6 +34,7 @@ class Register : AppCompatActivity() {
 
         loginNow.setOnClickListener{
             val intent = Intent(this, Login::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }

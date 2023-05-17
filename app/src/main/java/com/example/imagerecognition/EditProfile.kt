@@ -3,13 +3,11 @@ package com.example.imagerecognition
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class Settings : AppCompatActivity() {
+class EditProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-
+        setContentView(R.layout.activity_edit_profile)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
