@@ -39,4 +39,5 @@
     <string name="john_doe_example_com">john.doe@example.com</string>
     <string name="new_york_usa">New York, USA</string>
     <string name="male">Male</string>
+    <string name="are_ypu_sure_you_want_to_log_out">Are you sure you want to log out?</string>
 </resources>

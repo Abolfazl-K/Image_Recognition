@@ -1,5 +1,6 @@
 package com.example.imagerecognition
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.imagerecognition.databinding.ActivitySettingsBinding
@@ -10,6 +11,15 @@ class Settings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.logoutButton.setOnClickListener {
+            val customDialog = CustomDialog()
+            customDialog.show(supportFragmentManager, "CustomDialog")
+        }
+        binding.editProfileButton.setOnClickListener {
+            val intent = Intent(this, EditProfile::class.java)
+            startActivity(intent)
+        }
 
         setContentView(binding.root)
     }

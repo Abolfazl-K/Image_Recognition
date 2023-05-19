@@ -22,26 +22,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btn_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="@string/logout"
-                app:layout_constraintEnd_toEndOf="@+id/userInfo"
-                app:layout_constraintStart_toStartOf="@+id/userInfo"
-                app:layout_constraintTop_toBottomOf="@+id/userInfo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/nav_header_menu"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:fadingEdge="vertical"/>
+            android:fadingEdge="vertical" />
 
 
     </androidx.drawerlayout.widget.DrawerLayout>

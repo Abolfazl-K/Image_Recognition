@@ -44,16 +44,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
-
         binding.userInfo.text = user.email.toString()
 
-        binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-            finish()
-        }
         setContentView(binding.root)
     }
 
