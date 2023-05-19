@@ -1,67 +1,51 @@
 package com.example.imagerecognition
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.textfield.TextInputEditText
+import androidx.appcompat.app.AppCompatActivity
+import com.example.imagerecognition.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class Login : AppCompatActivity() {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
-    private lateinit var emailInput: TextInputEditText
-    private lateinit var passInput: TextInputEditText
-    private lateinit var btnLogin: Button
-    private lateinit var progressBar: ProgressBar
-    private lateinit var registerNow:TextView
-    private lateinit var forgotPass:TextView
+    private lateinit var binding:ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
-        emailInput = findViewById(R.id.emailInput)
-        passInput = findViewById(R.id.passwordInput)
-        btnLogin = findViewById(R.id.btn_login)
-        progressBar = findViewById(R.id.progressBar)
-        registerNow = findViewById(R.id.registerNow)
-        forgotPass = findViewById(R.id.forgotPass)
-
-        forgotPass.setOnClickListener {
+        binding.forgotPass.setOnClickListener {
             val intent = Intent(applicationContext, ResetPass::class.java)
             startActivity(intent)
         }
 
-        registerNow.setOnClickListener{
+        binding.registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
             startActivity(intent)
         }
 
-        btnLogin.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-            val email: String = emailInput.text.toString().trim()
-            val password: String = passInput.text.toString()
+        binding.btnLogin.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            val email: String = binding.emailInput.text.toString().trim()
+            val password: String = binding.passwordInput.text.toString()
 
             if(email.isEmpty()){
-                emailInput.error = "Email cant be empty!"
-                progressBar.visibility = View.GONE
+                binding.emailInput.error = "Email cant be empty!"
+                binding.progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             if(password.isEmpty()){
-                passInput.error = "Password cant be empty!"
-                progressBar.visibility = View.GONE
+                binding.passwordInput.error = "Password cant be empty!"
+                binding.progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     if (task.isSuccessful) {
                         val user:FirebaseUser = FirebaseAuth.getInstance().currentUser!!
                         if(user.isEmailVerified){
@@ -94,7 +78,7 @@ class Login : AppCompatActivity() {
                 }
 
         }
-
+        setContentView(binding.root)
     }
     public override fun onStart() {
         super.onStart()

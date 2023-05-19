@@ -1,113 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit_user_information"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/firstNameInputLayout"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleTextView"
-        android:layout_marginTop="32dp">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/firstNameEditText"
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_user_information"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstNameInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/titleTextView"
+            android:layout_marginTop="32dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lastNameInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/firstNameInputLayout"
-        android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lastNameEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lastNameInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/last_name"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/firstNameInputLayout"
+            android:layout_marginTop="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lastNameInputLayout"
-        android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/lastNameInputLayout"
+            android:layout_marginTop="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/locationInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/emailInputLayout"
-        android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/locationEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/locationInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/location"
-            android:inputType="textPostalAddress"
-            android:maxLines="1"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/emailInputLayout"
+            android:layout_marginTop="16dp">
 
-    <TextView
-        android:id="@+id/sexLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sex"
-        android:textSize="16sp"
-        android:layout_below="@id/locationInputLayout"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/locationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"
+                android:inputType="textPostalAddress"
+                android:maxLines="1"
+                android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/sexSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/locationInputLayout"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@id/sexLabelTextView" />
+        <TextView
+            android:id="@+id/sexLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sex"
+            android:textSize="16sp"
+            android:layout_below="@id/locationInputLayout"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_below="@id/sexSpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        style="@style/Widget.MaterialComponents.Button" />
+        <Spinner
+            android:id="@+id/sexSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationInputLayout"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/sexLabelTextView" />
 
-</RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_below="@id/sexSpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            style="@style/Widget.MaterialComponents.Button" />
+
+    </RelativeLayout>
+</layout>

@@ -1,75 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_profile_foreground"
-        android:scaleType="centerCrop"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/profilePicture"
-        android:elevation="8dp" />
-
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="John Doe"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_below="@id/profileImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="john.doe@example.com"
-        android:textSize="16sp"
-        android:layout_below="@id/nameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/locationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New York, USA"
-        android:textSize="16sp"
-        android:layout_below="@id/emailTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/sexTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        android:textSize="16sp"
-        android:layout_below="@id/locationTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/changeInfoButton"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="@string/change_information"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp"
-        style="@style/Widget.MaterialComponents.Button"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"
-        app:cornerRadius="7dp"/>
+        android:layout_height="match_parent"
+        android:padding="15dp">
 
-    <!-- Add more profile details or customize the layout as needed -->
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_profile_foreground"
+            android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/profilePicture"
+            android:elevation="8dp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/john_doe"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_below="@id/profileImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/john_doe_example_com"
+            android:textSize="16sp"
+            android:layout_below="@id/nameTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_york_usa"
+            android:textSize="16sp"
+            android:layout_below="@id/emailTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/sexTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:textSize="16sp"
+            android:layout_below="@id/locationTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeInfoButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="@string/change_information"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="32dp"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            app:cornerRadius="7dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logoutButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="false"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/purple_500"
+            android:text="@string/logout"
+            android:textColor="@android:color/white"
+            app:cornerRadius="7dp" />
+
+        <!-- Add more profile details or customize the layout as needed -->
+
+    </RelativeLayout>
+</layout>

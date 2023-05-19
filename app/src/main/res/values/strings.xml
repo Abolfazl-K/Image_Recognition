@@ -35,4 +35,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="change_theme">Change Theme</string>
     <string name="change_language">Change Language</string>
+    <string name="john_doe">John Doe</string>
+    <string name="john_doe_example_com">john.doe@example.com</string>
+    <string name="new_york_usa">New York, USA</string>
+    <string name="male">Male</string>
 </resources>
