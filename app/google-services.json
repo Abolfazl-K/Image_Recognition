@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1055058422333",
-    "project_id": "image-recognition-9a798",
-    "storage_bucket": "image-recognition-9a798.appspot.com"
+    "project_number": "1093382233129",
+    "project_id": "image-recognition-522e7",
+    "storage_bucket": "image-recognition-522e7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1055058422333:android:298d3985c3bb728ab0d854",
+        "mobilesdk_app_id": "1:1093382233129:android:fbcf8d6b8f78e1404d5038",
         "android_client_info": {
           "package_name": "com.example.imagerecognition"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1055058422333-qa1inhn628vl3im7vnnjc0lbmrimn6lr.apps.googleusercontent.com",
+          "client_id": "1093382233129-fiqifp8udfc7495lmeifkd0rpjpqh0uc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.imagerecognition",
+            "certificate_hash": "51a909ff5519a413fa587a1057fa42d7f366282f"
+          }
+        },
+        {
+          "client_id": "1093382233129-nvn15f8gvs8m8o5q4gs3d77ufr8kkm9p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgVHxflTbWfTmv9MDYGIOuIvd6-wvz6YI"
+          "current_key": "AIzaSyCS5XmJnw6G68vFziXulgudw3FC6z40Rgc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1055058422333-qa1inhn628vl3im7vnnjc0lbmrimn6lr.apps.googleusercontent.com",
+              "client_id": "1093382233129-nvn15f8gvs8m8o5q4gs3d77ufr8kkm9p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapSentences"
                 android:maxLines="1"
                 android:imeOptions="actionNext" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -44,42 +44,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapSentences"
                 android:maxLines="1"
                 android:imeOptions="actionNext" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lastNameInputLayout"
-            android:layout_marginTop="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:imeOptions="actionNext"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/locationInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/emailInputLayout"
+            android:layout_below="@id/ageInputLayout"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/locationEditText"
+                android:id="@+id/addressInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"
+                android:hint="@string/address"
                 android:imeOptions="actionNext"
-                android:inputType="textPostalAddress"
+                android:inputType="textPostalAddress|textCapSentences"
+                android:maxLines="1"
+                android:textColorHint="#616161" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ageInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastNameInputLayout"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ageInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/age"
+                android:imeOptions="actionNext"
+                android:inputType="number"
                 android:maxLines="1"
                 android:textColorHint="#616161" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +94,19 @@
             android:layout_marginTop="16dp"
             android:text="@string/sex"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/sexError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sexLabelTextView"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/red"
+            android:text="@string/please_choose_a_valid_gender"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/sexSpinner"
@@ -111,6 +125,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
             style="@style/Widget.MaterialComponents.Button" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/progressBar"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/saveButton"/>
 
     </RelativeLayout>
 </layout>

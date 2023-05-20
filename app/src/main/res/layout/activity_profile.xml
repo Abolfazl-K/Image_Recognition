@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/locationTextView"
+            android:id="@+id/addressTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_york_usa"
@@ -53,7 +53,17 @@
             android:layout_height="wrap_content"
             android:text="@string/male"
             android:textSize="16sp"
-            android:layout_below="@id/locationTextView"
+            android:layout_below="@id/addressTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/ageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eighteen"
+            android:textSize="16sp"
+            android:layout_below="@id/sexTextView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp" />
 

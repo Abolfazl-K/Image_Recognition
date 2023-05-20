@@ -40,6 +40,10 @@
     <string name="new_york_usa">New York, USA</string>
     <string name="male">Male</string>
     <string name="are_ypu_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="address">Address</string>
+    <string name="age">Age</string>
+    <string name="please_choose_a_valid_gender">Please choose a valid gender!</string>
+    <string name="eighteen">18</string>
 
     <string-array name="gender_options">
         <item>Choose</item>
