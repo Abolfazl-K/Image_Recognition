@@ -6,18 +6,21 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imagerecognition.databinding.ActivityMainBinding
+import com.example.imagerecognition.databinding.NavHeaderBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navHeaderBinding: NavHeaderBinding
     private lateinit var user:FirebaseUser
     private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        navHeaderBinding = NavHeaderBinding.inflate(layoutInflater)
         user = auth.currentUser!!
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        binding.navView.addHeaderView(navHeaderBinding.root)
 
         binding.userInfo.text = user.email.toString()
 

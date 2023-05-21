@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".ChangeProfilePicture">
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_profile_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/profilePicture" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changePhotoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/change_photo"
+            app:layout_constraintBottom_toTopOf="@+id/saveButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
