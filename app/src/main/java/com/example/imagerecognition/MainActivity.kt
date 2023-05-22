@@ -3,9 +3,9 @@ package com.example.imagerecognition
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.imagerecognition.databinding.ActivityMainBinding
 import com.example.imagerecognition.databinding.NavHeaderBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,22 +26,28 @@ class MainActivity : AppCompatActivity() {
 
         user = auth.currentUser!!
         val database = FirebaseFirestore.getInstance()
-        val userRef = database.collection("Users").document(user.uid)
+        database.collection("Users").document(user.uid)
+
+        user = FirebaseAuth.getInstance().currentUser!!
+        val userReference = database.collection("Users").document(user.uid)
+        userReference.get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val imageUrl = document.getString("profilePicture")
+                    Glide.with(this)
+                        .load(imageUrl)
+                        .into(navHeaderBinding.navProfilePic)
+                    val firstName = document.getString("firstName")
+                    val lastName = document.getString("lastName")
+                    navHeaderBinding.navUserName.text = getFullName(firstName, lastName)
+                }
+            }
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        userRef.get()
-            .addOnSuccessListener { document ->
-                if(document.exists()){
-                    navHeaderBinding.navUserName.text = document.getString("fullName")
-                }else{
-                    Toast.makeText(this, "error getting the user information!", Toast.LENGTH_SHORT).show()
-                }
-            }
 
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -65,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         binding.userInfo.text = user.email.toString()
 
         setContentView(binding.root)
+    }
+
+    private fun getFullName(firstName: String?, lastName: String?): String {
+        return "$firstName $lastName"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

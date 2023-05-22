@@ -29,4 +29,12 @@ class Settings : AppCompatActivity() {
         onBackPressed()
         return true
     }
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        super.onBackPressed()
+    }
 }

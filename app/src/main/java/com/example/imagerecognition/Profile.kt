@@ -7,14 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.imagerecognition.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
 class Profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var storage: FirebaseStorage
-    private lateinit var database: FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -37,13 +35,14 @@ class Profile : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     // Get the firstName field from the document
-                    val name = document.getString("fullName")
+                    val firstName = document.getString("firstName")
+                    val lastName = document.getString("lastName")
                     val email = FirebaseAuth.getInstance().currentUser!!.email
                     val age = document.get("age")
                     val address = document.getString("address")
                     val sex = document.getString("sex")
-                    val imageUrl = document.getString("profileImageUrl")
-                    binding.nameTextView.text = name.toString()
+                    val imageUrl = document.getString("profilePicture")
+                    binding.nameTextView.text = getFullName(firstName, lastName)
                     binding.emailTextView.text = email.toString()
                     binding.addressTextView.text = address.toString()
                     binding.ageTextView.text = age.toString()
@@ -62,7 +61,6 @@ class Profile : AppCompatActivity() {
         binding.changeInfoButton.setOnClickListener {
             val intent = Intent(this, EditProfile::class.java)
             startActivity(intent)
-            finish()
         }
 
         binding.logoutButton.setOnClickListener {
@@ -71,6 +69,9 @@ class Profile : AppCompatActivity() {
         }
         setContentView(binding.root)
     }
+    private fun getFullName(firstName: String?, lastName: String?): String {
+        return "$firstName $lastName"
+    }
 
     @Suppress("DEPRECATION")
     override fun onSupportNavigateUp(): Boolean {
@@ -78,6 +79,7 @@ class Profile : AppCompatActivity() {
         return true
     }
 
+    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)

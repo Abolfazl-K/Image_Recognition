@@ -17,9 +17,9 @@ class EditProfile : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
 
-        val user = FirebaseAuth.getInstance().currentUser
+        val currentUser = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
-        val userRef = db.collection("Users").document(user!!.uid)
+        val userRef = db.collection("Users").document(currentUser!!.uid)
 
         userRef.get()
             .addOnSuccessListener { document ->
@@ -29,7 +29,7 @@ class EditProfile : AppCompatActivity() {
                     val lastName = document.getString("lastName")
                     val age = document.get("age")
                     val address = document.getString("address")
-                    val sex = document.getString("sex")
+                    //TODO val sex = document.getString("sex")
                     binding.firstNameEditText.setText(firstName.toString())
                     binding.lastNameEditText.setText(lastName.toString())
                     binding.ageInputEditText.setText(age.toString())
@@ -88,11 +88,14 @@ class EditProfile : AppCompatActivity() {
             }
             binding.sexError.visibility = View.GONE
 
-            val user = User(firstName = firstName, lastName = lastName, age = age.toInt(), address = address, sex = sex)
-            val currentUser = FirebaseAuth.getInstance().currentUser
-            val db = FirebaseFirestore.getInstance()
-            val userRef = db.collection("Users").document(currentUser!!.uid)
-            userRef.set(user).addOnCompleteListener {
+            val updateMap: MutableMap<String, Any> = HashMap()
+            updateMap["firstName"] = firstName
+            updateMap["lastName"] = lastName
+            updateMap["address"] = address
+            updateMap["age"] = age
+            updateMap["sex"] = sex
+
+            userRef.update(updateMap).addOnCompleteListener {
                 binding.sexError.visibility = View.GONE
                 if(it.isSuccessful){
                     Toast.makeText(

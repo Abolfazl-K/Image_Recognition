@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imagerecognition.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Register : AppCompatActivity() {
 
@@ -73,17 +74,29 @@ class Register : AppCompatActivity() {
             mAuth.createUserWithEmailAndPassword(email, pass1)
                 .addOnCompleteListener(this) { task ->
                     binding.progressBar.visibility = View.GONE
+
                     if (task.isSuccessful) {
-                        val user = mAuth.currentUser
-                        user?.sendEmailVerification()
-                        Toast.makeText(
-                            this,
-                            "User registered successfully!, please verify your email.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                        finish()
+                        val currentUser = mAuth.currentUser
+                        val user = User(firstName = "firstName", lastName = "lastName", age = 18, address = "address", sex = "Choose", profilePicture = "")
+                        val db = FirebaseFirestore.getInstance()
+                        val userRef = db.collection("Users").document(currentUser!!.uid)
+                        userRef.set(user).addOnCompleteListener {
+                            currentUser.sendEmailVerification()
+                            Toast.makeText(
+                                this,
+                                "User registered successfully!, please verify your email.",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                            val intent = Intent(this, Login::class.java)
+                            startActivity(intent)
+                            finish()
+                        }.addOnFailureListener {
+                            Toast.makeText(
+                                this,
+                                "Something bad happened!, Try again later",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(

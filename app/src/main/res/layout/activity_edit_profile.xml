@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/sexLabelTextView"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/red"
             android:text="@string/please_choose_a_valid_gender"
             android:textSize="12sp"
@@ -123,7 +123,7 @@
             android:text="@string/save"
             android:layout_below="@id/sexSpinner"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             style="@style/Widget.MaterialComponents.Button" />
 
         <ProgressBar
