@@ -12,6 +12,7 @@ class About : AppCompatActivity() {
         binding.btnBackToMain.setOnClickListener {
             @Suppress("DEPRECATION")
             onBackPressed()
+            overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
         }
 
         setContentView(binding.root)

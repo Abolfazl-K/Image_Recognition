@@ -57,14 +57,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile -> {
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 }
                 R.id.settings -> {
                     val intent = Intent(this, Settings::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 }
                 R.id.about -> {
                     val intent = Intent(this, About::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 }
             }
             true

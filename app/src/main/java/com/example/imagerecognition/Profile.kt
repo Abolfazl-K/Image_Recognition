@@ -9,11 +9,14 @@ import com.bumptech.glide.Glide
 import com.example.imagerecognition.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 class Profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var storage: FirebaseStorage
+
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val database = FirebaseFirestore.getInstance()
+    private val userRef = database.collection("Users").document(currentUser!!.uid)
+
     @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,18 +24,46 @@ class Profile : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val database = FirebaseFirestore.getInstance()
-        val userRef = database.collection("Users").document(currentUser!!.uid)
-
-        storage = FirebaseStorage.getInstance()
-
         binding.profileImageView.setOnClickListener {
             val intent = Intent(this, ChangeProfilePicture::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
 
+        binding.changeInfoButton.setOnClickListener {
+            val intent = Intent(this, EditProfile::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+        }
 
+        binding.logoutButton.setOnClickListener {
+            val customDialog = CustomDialog()
+            customDialog.show(supportFragmentManager, "CustomDialog")
+        }
+        setContentView(binding.root)
+    }
+    private fun getFullName(firstName: String?, lastName: String?): String {
+        return "$firstName $lastName"
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
+        super.onBackPressed()
+    }
+
+    override fun onStart() {
+        super.onStart()
         userRef.get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -62,34 +93,5 @@ class Profile : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText( this, "Error getting user document", Toast.LENGTH_SHORT).show()
             }
-
-        binding.changeInfoButton.setOnClickListener {
-            val intent = Intent(this, EditProfile::class.java)
-            startActivity(intent)
-        }
-
-        binding.logoutButton.setOnClickListener {
-            val customDialog = CustomDialog()
-            customDialog.show(supportFragmentManager, "CustomDialog")
-        }
-        setContentView(binding.root)
-    }
-    private fun getFullName(firstName: String?, lastName: String?): String {
-        return "$firstName $lastName"
-    }
-
-    @Suppress("DEPRECATION")
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    @Suppress("DEPRECATION")
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        super.onBackPressed()
     }
 }

@@ -22,6 +22,7 @@ class Register : AppCompatActivity() {
             val intent = Intent(this, Login::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
             finish()
         }
 
@@ -89,6 +90,7 @@ class Register : AppCompatActivity() {
                             ).show()
                             val intent = Intent(this, Login::class.java)
                             startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                             finish()
                         }.addOnFailureListener {
                             Toast.makeText(

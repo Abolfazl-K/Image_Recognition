@@ -112,6 +112,7 @@ class EditProfile : AppCompatActivity() {
                     val intent = Intent(this, Profile::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
                     finish()
                 }else{
                     Toast.makeText(
@@ -129,6 +130,7 @@ class EditProfile : AppCompatActivity() {
     @Suppress("DEPRECATION")
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
         return true
     }
 }

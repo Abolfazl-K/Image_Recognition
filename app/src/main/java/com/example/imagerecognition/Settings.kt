@@ -19,6 +19,7 @@ class Settings : AppCompatActivity() {
         binding.editProfileButton.setOnClickListener {
             val intent = Intent(this, EditProfile::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
 
         setContentView(binding.root)
@@ -35,6 +36,7 @@ class Settings : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
         super.onBackPressed()
     }
 }

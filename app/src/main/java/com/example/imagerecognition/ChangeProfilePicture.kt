@@ -41,6 +41,7 @@ class ChangeProfilePicture : AppCompatActivity() {
         setContentView(R.layout.activity_change_profile_picture)
         binding = ActivityChangeProfilePictureBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.saveButton.isEnabled = false
 
         user = FirebaseAuth.getInstance().currentUser!!
         val database = FirebaseFirestore.getInstance()
@@ -83,6 +84,7 @@ class ChangeProfilePicture : AppCompatActivity() {
                             val intent = Intent(this, Profile::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
+                            overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
                         }.addOnFailureListener {
                             Toast.makeText(this, "Something happened when uploading the downloadUrl into fireStore", Toast.LENGTH_SHORT).show()
                         }
@@ -135,7 +137,9 @@ class ChangeProfilePicture : AppCompatActivity() {
                             .load(imageUri)
                             .error(R.drawable.baseline_broken_image_24)
                             .placeholder(R.drawable.placeholder_image)
+                            .circleCrop()
                             .into(binding.profileImageView)
+                        binding.saveButton.isEnabled = true
                     }else{
                         Toast.makeText(this, "Please choose a picture!", Toast.LENGTH_SHORT).show()
                     }
@@ -148,7 +152,9 @@ class ChangeProfilePicture : AppCompatActivity() {
                         .load(imageUri)
                         .error(R.drawable.baseline_broken_image_24)
                         .placeholder(R.drawable.placeholder_image)
+                        .circleCrop()
                         .into(binding.profileImageView)
+                    binding.saveButton.isEnabled = true
                     // Continue with the upload process
                 }
             }
