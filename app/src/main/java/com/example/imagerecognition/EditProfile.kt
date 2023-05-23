@@ -17,6 +17,12 @@ class EditProfile : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
 
+        val genderOptions = resources.getStringArray(R.array.gender_options)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.sexSpinner.adapter = adapter
+
         val currentUser = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         val userRef = db.collection("Users").document(currentUser!!.uid)
@@ -29,7 +35,13 @@ class EditProfile : AppCompatActivity() {
                     val lastName = document.getString("lastName")
                     val age = document.get("age")
                     val address = document.getString("address")
-                    //TODO val sex = document.getString("sex")
+                    val sexValueIndex = when(document.getString("sex")){
+                        "Choose" -> 0
+                        "Male" -> 1
+                        "Female" -> 2
+                        else -> null
+                    }
+                    binding.sexSpinner.setSelection(sexValueIndex!!)
                     binding.firstNameEditText.setText(firstName.toString())
                     binding.lastNameEditText.setText(lastName.toString())
                     binding.ageInputEditText.setText(age.toString())
@@ -42,12 +54,6 @@ class EditProfile : AppCompatActivity() {
                 Toast.makeText( this, "Error getting user document", Toast.LENGTH_SHORT).show()
             }
 
-        val genderOptions = resources.getStringArray(R.array.gender_options)
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.sexSpinner.adapter = adapter
-
         binding.saveButton.setOnClickListener {
             val firstName = binding.firstNameEditText.text.toString()
             val lastName = binding.lastNameEditText.text.toString()
@@ -57,13 +63,13 @@ class EditProfile : AppCompatActivity() {
 
             binding.progressBar.visibility = View.VISIBLE
 
-            if(firstName.isEmpty()){
+            if(firstName.isEmpty() || firstName == "firstName"){
                 binding.firstNameEditText.error = "First name cant be empty!"
                 binding.progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
-            if(lastName.isEmpty()){
+            if(lastName.isEmpty() || lastName == "lastName"){
                 binding.firstNameEditText.error = "First name cant be empty!"
                 binding.progressBar.visibility = View.GONE
                 return@setOnClickListener
@@ -75,7 +81,7 @@ class EditProfile : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if(address.isEmpty()){
+            if(address.isEmpty() || address == "address"){
                 binding.addressInputEditText.error = "Address name cant be empty!"
                 binding.progressBar.visibility = View.GONE
                 return@setOnClickListener

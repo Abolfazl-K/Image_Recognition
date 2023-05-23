@@ -1,5 +1,6 @@
 package com.example.imagerecognition
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
@@ -34,6 +35,7 @@ class ChangeProfilePicture : AppCompatActivity() {
     private lateinit var downloadUrl: String
 
 
+    @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_profile_picture)
@@ -49,6 +51,8 @@ class ChangeProfilePicture : AppCompatActivity() {
                     val imageUrl = document.getString("profilePicture")
                     Glide.with(this)
                         .load(imageUrl)
+                        .error(R.drawable.baseline_broken_image_24)
+                        .placeholder(R.drawable.placeholder_image)
                         .into(binding.profileImageView)
                 }
             }
@@ -126,7 +130,11 @@ class ChangeProfilePicture : AppCompatActivity() {
                 GALLERY_REQUEST_CODE -> {
                     if(data!= null){
                         imageUri = data.data!!
-                        binding.profileImageView.setImageURI(imageUri)
+                        Glide.with(this)
+                            .load(imageUri)
+                            .error(R.drawable.baseline_broken_image_24)
+                            .placeholder(R.drawable.placeholder_image)
+                            .into(binding.profileImageView)
                     }else{
                         Toast.makeText(this, "Please choose a picture!", Toast.LENGTH_SHORT).show()
                     }
@@ -135,7 +143,11 @@ class ChangeProfilePicture : AppCompatActivity() {
                 CAMERA_REQUEST_CODE -> {
                     val imageBitmap = data?.extras?.get("data") as Bitmap
                     imageUri = saveImageToInternalStorage(imageBitmap)
-                    binding.profileImageView.setImageURI(imageUri)
+                    Glide.with(this)
+                        .load(imageUri)
+                        .error(R.drawable.baseline_broken_image_24)
+                        .placeholder(R.drawable.placeholder_image)
+                        .into(binding.profileImageView)
                     // Continue with the upload process
                 }
             }

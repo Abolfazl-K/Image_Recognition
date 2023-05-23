@@ -1,5 +1,6 @@
 package com.example.imagerecognition
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage
 class Profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var storage: FirebaseStorage
+    @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -49,6 +51,8 @@ class Profile : AppCompatActivity() {
                     binding.sexTextView.text = sex.toString()
                     Glide.with(this)
                         .load(imageUrl)
+                        .error(R.drawable.baseline_broken_image_24)
+                        .placeholder(R.drawable.placeholder_image)
                         .into(binding.profileImageView)
                 } else {
                     Toast.makeText( this, "User document does not exist", Toast.LENGTH_SHORT).show()
