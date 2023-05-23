@@ -53,6 +53,7 @@ class Profile : AppCompatActivity() {
                         .load(imageUrl)
                         .error(R.drawable.baseline_broken_image_24)
                         .placeholder(R.drawable.placeholder_image)
+                        .circleCrop()
                         .into(binding.profileImageView)
                 } else {
                     Toast.makeText( this, "User document does not exist", Toast.LENGTH_SHORT).show()

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.imagerecognition.databinding.ActivityMainBinding
 import com.example.imagerecognition.databinding.NavHeaderBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
                     val imageUrl = document.getString("profilePicture")
                     Glide.with(this)
                         .load(imageUrl)
+                        .apply(RequestOptions.overrideOf(250, 250))
+                        .apply(RequestOptions.centerCropTransform())
                         .into(navHeaderBinding.navProfilePic)
                     val firstName = document.getString("firstName")
                     val lastName = document.getString("lastName")

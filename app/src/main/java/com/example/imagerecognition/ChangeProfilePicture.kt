@@ -53,6 +53,7 @@ class ChangeProfilePicture : AppCompatActivity() {
                         .load(imageUrl)
                         .error(R.drawable.baseline_broken_image_24)
                         .placeholder(R.drawable.placeholder_image)
+                        .circleCrop()
                         .into(binding.profileImageView)
                 }
             }
