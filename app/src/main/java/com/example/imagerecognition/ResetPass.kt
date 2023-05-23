@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imagerecognition.databinding.ActivityResetPassBinding
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class ResetPass : AppCompatActivity() {
 
     private lateinit var binding:ActivityResetPassBinding
@@ -22,7 +23,9 @@ class ResetPass : AppCompatActivity() {
 
         binding.backToLogin.setOnClickListener{
             val intent = Intent(applicationContext, Login::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             finish()
         }
 
@@ -60,5 +63,11 @@ class ResetPass : AppCompatActivity() {
         }
 
         setContentView(binding.root)
+    }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
     }
 }

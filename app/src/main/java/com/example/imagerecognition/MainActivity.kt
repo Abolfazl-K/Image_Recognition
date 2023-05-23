@@ -10,41 +10,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.imagerecognition.databinding.ActivityMainBinding
 import com.example.imagerecognition.databinding.NavHeaderBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
-    private val auth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHeaderBinding: NavHeaderBinding
-    private lateinit var user:FirebaseUser
+    private var user = FirebaseAuth.getInstance().currentUser!!
     private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         navHeaderBinding = NavHeaderBinding.inflate(layoutInflater)
-
-        user = auth.currentUser!!
-        val database = FirebaseFirestore.getInstance()
-        database.collection("Users").document(user.uid)
-
-        user = FirebaseAuth.getInstance().currentUser!!
-        val userReference = database.collection("Users").document(user.uid)
-        userReference.get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val imageUrl = document.getString("profilePicture")
-                    Glide.with(this)
-                        .load(imageUrl)
-                        .apply(RequestOptions.overrideOf(250, 250))
-                        .apply(RequestOptions.centerCropTransform())
-                        .into(navHeaderBinding.navProfilePic)
-                    val firstName = document.getString("firstName")
-                    val lastName = document.getString("lastName")
-                    navHeaderBinding.navUserName.text = getFullName(firstName, lastName)
-                }
-            }
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -88,5 +65,29 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val database = FirebaseFirestore.getInstance()
+        database.collection("Users").document(user.uid)
+
+        user = FirebaseAuth.getInstance().currentUser!!
+        val userReference = database.collection("Users").document(user.uid)
+        userReference.get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val imageUrl = document.getString("profilePicture")
+                    Glide.with(this)
+                        .load(imageUrl)
+                        .apply(RequestOptions.overrideOf(250, 250))
+                        .apply(RequestOptions.centerCropTransform())
+                        .into(navHeaderBinding.navProfilePic)
+                    val firstName = document.getString("firstName")
+                    val lastName = document.getString("lastName")
+                    navHeaderBinding.navUserName.text = getFullName(firstName, lastName)
+                }
+            }
     }
 }

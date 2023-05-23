@@ -9,6 +9,7 @@ import com.example.imagerecognition.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+@Suppress("DEPRECATION")
 class Register : AppCompatActivity() {
 
     private val mAuth:FirebaseAuth = FirebaseAuth.getInstance()
@@ -22,8 +23,7 @@ class Register : AppCompatActivity() {
             val intent = Intent(this, Login::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
-            finish()
+            overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -89,9 +89,9 @@ class Register : AppCompatActivity() {
                                 Toast.LENGTH_SHORT,
                             ).show()
                             val intent = Intent(this, Login::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                            finish()
+                            overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
                         }.addOnFailureListener {
                             Toast.makeText(
                                 this,
@@ -110,5 +110,11 @@ class Register : AppCompatActivity() {
                 }
         }
         setContentView(binding.root)
+    }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
     }
 }

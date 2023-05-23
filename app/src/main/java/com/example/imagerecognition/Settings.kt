@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.imagerecognition.databinding.ActivitySettingsBinding
 
+@Suppress("DEPRECATION")
 class Settings : AppCompatActivity() {
     private lateinit var binding:ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +31,10 @@ class Settings : AppCompatActivity() {
         onBackPressed()
         return true
     }
-    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
+        finish()
+        overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
         super.onBackPressed()
     }
 }

@@ -19,11 +19,13 @@ class Login : AppCompatActivity() {
         binding.forgotPass.setOnClickListener {
             val intent = Intent(applicationContext, ResetPass::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
         }
 
         binding.registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
 
         binding.btnLogin.setOnClickListener {
@@ -58,6 +60,7 @@ class Login : AppCompatActivity() {
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                             finish()
                         }else{
                             user.sendEmailVerification()

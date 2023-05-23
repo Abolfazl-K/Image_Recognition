@@ -84,7 +84,7 @@ class ChangeProfilePicture : AppCompatActivity() {
                             val intent = Intent(this, Profile::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
-                            overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
+                            overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
                         }.addOnFailureListener {
                             Toast.makeText(this, "Something happened when uploading the downloadUrl into fireStore", Toast.LENGTH_SHORT).show()
                         }
@@ -175,5 +175,12 @@ class ChangeProfilePicture : AppCompatActivity() {
         }
 
         return Uri.fromFile(file)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
     }
 }

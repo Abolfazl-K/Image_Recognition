@@ -10,6 +10,7 @@ import com.example.imagerecognition.databinding.ActivityEditProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+@Suppress("DEPRECATION")
 class EditProfile : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,8 +113,8 @@ class EditProfile : AppCompatActivity() {
                     val intent = Intent(this, Profile::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
                     finish()
+                    overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
                 }else{
                     Toast.makeText(
                         this,
@@ -130,7 +131,13 @@ class EditProfile : AppCompatActivity() {
     @Suppress("DEPRECATION")
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
         return true
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_rev, R.anim.slide_out_rev)
     }
 }
