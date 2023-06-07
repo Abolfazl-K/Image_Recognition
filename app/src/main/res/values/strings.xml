@@ -46,6 +46,11 @@
     <string name="eighteen">18</string>
     <string name="cancel">Cancel</string>
     <string name="change_photo">Change Photo</string>
+    <string name="choose_an_image">Choose an Image!</string>
+    <string name="choose">Choose</string>
+    <string name="process">Process</string>
+    <string name="imageToProcess">ImageToProcess</string>
+    <string name="resault">Resault:</string>
 
     <string-array name="gender_options">
         <item>Choose</item>
