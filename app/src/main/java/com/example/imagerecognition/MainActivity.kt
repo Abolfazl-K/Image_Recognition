@@ -29,6 +29,10 @@ import java.io.IOException
 import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -44,6 +48,13 @@ class MainActivity : AppCompatActivity() {
     private val CAMERA_REQUEST_CODE = 2
 
     private val imageSize = 224
+
+    private val REQUEST_PERMISSIONS = 1
+    private val PERMISSIONS = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +92,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnProcess.isEnabled = false
 
         binding.btnChooseImage.setOnClickListener {
-            showImagePickerDialog()
+            if (checkPermissions()) {
+                // Permissions already granted, proceed with gallery/camera operations
+                // Your code for gallery/camera operations here
+                showImagePickerDialog()
+            } else {
+                // Permissions not granted, request them
+                requestPermissions()
+            }
         }
 
         binding.btnProcess.setOnClickListener {
@@ -180,10 +198,21 @@ class MainActivity : AppCompatActivity() {
             , "Tomato___healthy")
         val predictedClassLabel = classLabels[maxProbabilityIndex]
 
-        binding.resaultText.text = predictedClassLabel
+        binding.resaultText.text = formatTheResult(predictedClassLabel)
 
         // Releases model resources if no longer used.
         model.close()
+    }
+
+    private fun formatTheResult(predictedClassLabel: String): CharSequence {
+        val parts = predictedClassLabel.split("___")
+
+        val name = parts[0]
+        val status = if (predictedClassLabel.contains("healthy")) "healthy" else "not healthy"
+        val disease = if(status == "healthy") "none!" else parts.lastOrNull()
+        return "Name: ${name}\n" +
+                "Status: ${status}\n" +
+                "Disease: $disease"
     }
 
     private fun getFullName(firstName: String?, lastName: String?): String {
@@ -258,7 +287,7 @@ class MainActivity : AppCompatActivity() {
                         image = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
                         image = ThumbnailUtils.extractThumbnail(image, imageSize, imageSize)
 
-//                        binding.pickedImageView.setImageBitmap(image)
+                        //binding.pickedImageView.setImageBitmap(image)
 
                         Glide.with(this)
                             .load(imageUri)
@@ -308,5 +337,36 @@ class MainActivity : AppCompatActivity() {
         }
 
         return Uri.fromFile(file)
+    }
+
+    private fun checkPermissions(): Boolean {
+        for (permission in PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSIONS)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_PERMISSIONS) {
+            var allGranted = true
+            for (result in grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false
+                    break
+                }
+            }
+            if (allGranted) {
+                Toast.makeText(this, "All permissions granted!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Necessary permissions are not granted!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
